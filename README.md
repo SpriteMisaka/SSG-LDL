@@ -1,4 +1,54 @@
-# SSG-LDL
-A python implementation of the paper [*Synthetic Sample Generation for Label Distribution Learning*](https://github.com/SpriteMisaka/SSG-LDL/blob/main/Gonz%C3%A1lez_2021.pdf).
 
-LDL.py and metrics.py are from [https://github.com/wangjing4research/LDL](https://github.com/wangjing4research/LDL).
+
+# SSG-LDL
+
+An unofficial python implementation of SSG-LDL ([González et al. 2021](https://github.com/SpriteMisaka/SSG-LDL/blob/main/bibliography/gonz%C3%A1lez2021.pdf)).
+
+## Usage
+
+```python
+import scipy.io as sio
+
+data = sio.loadmat('SJAFFE')
+model = SSG_LDL()
+new_data = model.fit_transform(data)
+```
+
+## Experiments
+
+A ten-fold cross validation is performed, repeated 10 times and the average metrics are recorded. Note that *the testing data is always from the original dataset*. Results of different datasets are as follow.
+
++ *s-JAFFE*:
+
+  | Algorithm |    Cheby.(↓)    |    Clark(↓)     |     Can.(↓)     |     K-L(↓)      |     Cos.(↑)     |     Int.(↑)     |
+  | :-------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+  | SSG-BFGS  | **.039 ± .005** | **.177 ± .017** | **.349 ± .033** | **.011 ± .002** | **.991 ± .002** | **.945 ± .005** |
+  |  SA-BFGS  |   .092 ± .010   |   .361 ± .029   |   .735 ± .060   |   .051 ± .009   |   .954 ± .009   |   .878 ± .011   |
+
++ *s-BU_3DFE*:
+
+  | Algorithm |    Cheby.(↓)    |    Clark(↓)     |     Can.(↓)     |     K-L(↓)      |     Cos.(↑)     |     Int.(↑)     |
+  | :-------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+  | SSG-BFGS  | **.113 ± .004** |   .374 ± .010   | **.779 ± .021** | **.063 ± .003** |   .938 ± .003   | **.861 ± .004** |
+  |  SA-BFGS  |   .115 ± .004   | **.370 ± .009** |   .782 ± .021   | **.063 ± .003** | **.939 ± .003** |   .860 ± .004   |
+
++ *M*$^\textit{2}$*B*:
+
+  | Algorithm |    Cheby.(↓)    |    Clark(↓)     |     Can.(↓)     |     K-L(↓)      |     Cos.(↑)     |     Int.(↑)     |
+  | :-------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+  | SSG-BFGS  | **.280 ± .019** | **1.06 ± .025** | **1.96 ± .059** | **.331 ± .041** | **.848 ± .020** | **.713 ± .019** |
+  |  SA-BFGS  |   .383 ± .021   |   1.22 ± .028   |   2.35 ± .067   |   .688 ± .091   |   .723 ± .025   |   .608 ± .021   |
+
++ *SCUT_FBP*:
+
+  | Algorithm |    Cheby.(↓)    |    Clark(↓)     |     Can.(↓)     |     K-L(↓)      |     Cos.(↑)     |     Int.(↑)     |
+  | :-------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+  | SSG-BFGS  | **.349 ± .010** | **1.48 ± .013** | **2.87 ± .036** | **.698 ± .081** | **.719 ± .013** | **.556 ± .010** |
+  |  SA-BFGS  |   .419 ± .013   |   1.56 ± .017   |   3.12 ± .047   |   1.69 ± .320   |   .604 ± .018   |   .474 ± .013   |
+
++ *Natural_Scene*:
+
+  | Algorithm |    Cheby.(↓)    |    Clark(↓)     |     Can.(↓)     |     K-L(↓)      |     Cos.(↑)     |     Int.(↑)     |
+  | :-------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: | :-------------: |
+  | SSG-BFGS  | **.280 ± .011** | **2.40 ± .017** | **6.53 ± .071** | **.657 ± .031** | **.776 ± .012** | **.596 ± .011** |
+  |  SA-BFGS  |   .321 ± .014   |   2.42 ± .017   |   6.65 ± .069   |   .831 ± .045   |   .716 ± .015   |   .548 ± .012   |
